@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "build": "watchify src/app.js -o public/bundle.js -t [ babelify --presets [ react es2015 ] ]",
-    "build2": "watchify src/app_localStorage.js -o public/bundle.js -t [ babelify --presets [ react es2015 ] ]",
-    "server": "cd public; live-server --port=1234 --entry-file=index.html"
+    "server": "node server.js",
+    "build:ls": "watchify src/app_localStorage.js -o public/bundle.js -t [ babelify --presets [ react es2015 ] ]",
+    "server:ls": "cd public; live-server --port=1234 --entry-file=index.html",
+    "start": "npm-run-all --parallel build server",
+    "start:ls": "npm-run-all --parallel build:ls server:ls"
   },
   "keywords": [],
   "author": "",
@@ -27,5 +30,9 @@
     "redux": "^3.3.1",
     "redux-thunk": "^2.0.1",
     "watchify": "^3.7.0"
+  },
+  "devDependencies": {
+    "npm-run-all": "^3.1.0",
+    "open": "0.0.5"
   }
 }
