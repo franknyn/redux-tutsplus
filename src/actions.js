@@ -9,6 +9,7 @@ export const deleteCard = cardId => ({ type: 'DELETE_CARD', data: cardId });
 export const filterCards = query => ({ type: 'FILTER_CARDS', data: query });
 export const setShowBack = back  => ({ type: 'SHOW_BACK', data: back });
 
+//for async actions - redux-thunk , no need if using localStorage
 export const receiveData = data => ({ type: 'RECEIVE_DATA', data: data });
 
 export const fetchData = () => {

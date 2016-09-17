@@ -4,11 +4,11 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
-import thunkMiddleware from 'redux-thunk';
-import { fetchData } from './actions';
+//import thunkMiddleware from 'redux-thunk';
+//import { fetchData } from './actions';
 import * as reducers from './reducers';
 reducers.routing = routerReducer;
-
+import * as localStore from './localStore';
 //console.log(React);
 
 import App from './components/App';
@@ -26,10 +26,16 @@ reducers= {
   addingDeck: false
 }
 */
-const store = createStore(combineReducers(reducers), applyMiddleware(thunkMiddleware));
+
+const store = createStore(combineReducers(reducers), localStore.get());
+//const store = createStore(combineReducers(reducers), applyMiddleware(thunkMiddleware));
 const history = syncHistoryWithStore(browserHistory, store);
 
 function run () {
+
+  let state = store.getState();
+  localStore.set(state, ['decks', 'cards']);
+
   ReactDOM.render((<Provider store={store}>
     <Router history={history}>
       <Route path='/' component={App}>
@@ -43,6 +49,7 @@ function run () {
   </Provider>), document.getElementById('root'));
 }
 
+/*
 function save() {
   var state = store.getState();
 
@@ -58,13 +65,14 @@ function save() {
     })
   });
 }
+*/
 
 function init () {
   run();
   //will be called every time an action is dispatched or store/state is changed
   store.subscribe(run);
-  store.subscribe(save);
-  store.dispatch(fetchData());
+  //store.subscribe(save);
+  //store.dispatch(fetchData());
 }
 
 init();
