@@ -8,6 +8,7 @@ const mapDispatchToProps = dispatch => ({
   onFilter: query => dispatch(filterCards(query))
 });
 
+//deckId is actually passed from App to ToolbarContainer and amazingly available in Toolbar
 const Toolbar = ({ deckId, showAddDeck, onFilter }) => {
   let deckTools = deckId ? (<div>
     <Link className='btn' to={`/deck/${deckId}/new`}> ✚ New Card </Link>
@@ -27,5 +28,5 @@ const Toolbar = ({ deckId, showAddDeck, onFilter }) => {
       {deckTools}
   </div>);
 };
-
-export default connect(null, mapDispatchToProps)(Toolbar);
+const ToolbarContainer = connect(null, mapDispatchToProps)(Toolbar);
+export default ToolbarContainer;

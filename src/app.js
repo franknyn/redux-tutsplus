@@ -9,14 +9,23 @@ import { fetchData } from './actions';
 import * as reducers from './reducers';
 reducers.routing = routerReducer;
 
-console.log(React);
+//console.log(React);
 
 import App from './components/App';
 import VisibleCards from './components/VisibleCards';
 import NewCardModal from './components/NewCardModal';
 import EditCardModal from './components/EditCardModal';
 import StudyModal from './components/StudyModal';
-
+/*
+initial state of store looks like
+reducers= {
+  showBack : false,
+  cardFilter: '',
+  cards: [],
+  decks: [],
+  addingDeck: false
+}
+*/
 const store = createStore(combineReducers(reducers), applyMiddleware(thunkMiddleware));
 const history = syncHistoryWithStore(browserHistory, store);
 
