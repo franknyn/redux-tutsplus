@@ -29,7 +29,7 @@ reducers= {
 const store = createStore(combineReducers(reducers), applyMiddleware(thunkMiddleware));
 const history = syncHistoryWithStore(browserHistory, store);
 
-function run () {
+//function run () {
   ReactDOM.render((<Provider store={store}>
     <Router history={history}>
       <Route path='/' component={App}>
@@ -41,7 +41,7 @@ function run () {
       </Route>
     </Router>
   </Provider>), document.getElementById('root'));
-}
+//}
 
 function save() {
   var state = store.getState();
@@ -60,9 +60,10 @@ function save() {
 }
 
 function init () {
-  run();
+  //run();
+  //store.subscribe(run);
+
   //will be called every time an action is dispatched or store/state is changed
-  store.subscribe(run);
   store.subscribe(save);
   store.dispatch(fetchData());
 }

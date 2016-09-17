@@ -31,23 +31,24 @@ const store = createStore(combineReducers(reducers), localStore.get());
 //const store = createStore(combineReducers(reducers), applyMiddleware(thunkMiddleware));
 const history = syncHistoryWithStore(browserHistory, store);
 
-function run () {
+ReactDOM.render((<Provider store={store}>
+  <Router history={history}>
+    <Route path='/' component={App}>
+      <Route path='/deck/:deckId' component={VisibleCards}>
+        <Route path='/deck/:deckId/new' component={NewCardModal} />
+        <Route path='/deck/:deckId/edit/:cardId' component={EditCardModal} />
+        <Route path='/deck/:deckId/study' component={StudyModal} />
+      </Route>
+    </Route>
+  </Router>
+</Provider>), document.getElementById('root'));
 
+
+function run () {
   let state = store.getState();
   localStore.set(state, ['decks', 'cards']);
-
-  ReactDOM.render((<Provider store={store}>
-    <Router history={history}>
-      <Route path='/' component={App}>
-        <Route path='/deck/:deckId' component={VisibleCards}>
-          <Route path='/deck/:deckId/new' component={NewCardModal} />
-          <Route path='/deck/:deckId/edit/:cardId' component={EditCardModal} />
-          <Route path='/deck/:deckId/study' component={StudyModal} />
-        </Route>
-      </Route>
-    </Router>
-  </Provider>), document.getElementById('root'));
 }
+
 
 /*
 function save() {
