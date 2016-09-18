@@ -13,8 +13,11 @@ reducers.routing = routerReducer;
 
 import App from './components/App';
 import VisibleCards from './components/VisibleCards';
-import NewCardModal from './components/NewCardModal';
-import EditCardModal from './components/EditCardModal';
+
+//import NewCardModal from './components/NewCardModal';
+//import EditCardModal from './components/EditCardModal';
+import ManageCardModal from './components/ManageCardModal';
+
 import StudyModal from './components/StudyModal';
 /*
 initial state of store looks like
@@ -25,6 +28,8 @@ reducers= {
   decks: [],
   addingDeck: false
 }
+
+cards: [{ id: cardId, score, lastStudiedOn: +now, front, back }]
 */
 const store = createStore(combineReducers(reducers), applyMiddleware(thunkMiddleware));
 const history = syncHistoryWithStore(browserHistory, store);
@@ -34,8 +39,10 @@ const history = syncHistoryWithStore(browserHistory, store);
     <Router history={history}>
       <Route path='/' component={App}>
         <Route path='/deck/:deckId' component={VisibleCards}>
-          <Route path='/deck/:deckId/new' component={NewCardModal} />
-          <Route path='/deck/:deckId/edit/:cardId' component={EditCardModal} />
+          {/*<Route path='/deck/:deckId/new' component={NewCardModal} />
+          <Route path='/deck/:deckId/edit/:cardId' component={EditCardModal} />*/}
+          <Route path='/deck/:deckId/new' component={ManageCardModal} />
+          <Route path='/deck/:deckId/edit/:cardId' component={ManageCardModal} />
           <Route path='/deck/:deckId/study' component={StudyModal} />
         </Route>
       </Route>
